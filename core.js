@@ -2,7 +2,7 @@
 // Mirrors code/08c_app_model.py (features) and the ROI rules of code/02a_roi_detect.py (v3), simplified:
 // circle instead of ellipse, no satellite "core" step. All processing is on the device; nothing is uploaded.
 
-export const VERSION = '0.1.1';
+export const VERSION = '0.1.2';
 
 // ---------- colour ----------
 function srgbToLinear(c) { c /= 255; return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); }
