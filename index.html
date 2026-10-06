@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gallic Acid Photo Test</title>
+<meta name="description" content="On-device photo test for gallic acid with 0.5% ferric chloride. Research use only.">
+<meta name="theme-color" content="#1f3a5f">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><img src="icons/icon-192.png" alt="" width="32" height="32"><div><h1>Gallic Acid Photo Test</h1><p class="sub">GA with 0.5% FeCl<sub>3</sub> &middot; v<span id="ver"></span></p></div></div>
+  <nav><button class="tab on" data-view="test">Test</button><button class="tab" data-view="about">About &amp; cite</button></nav>
+</header>
+
+<main>
+<section id="view-test" class="view">
+  <div class="notice">Research prototype. Room-light accuracy is still being validated. Do not use results for food-safety, medical or legal decisions.</div>
+
+  <ol class="steps">
+    <li>Place <b>one drop</b> of the sample on clear plastic film over white paper.</li>
+    <li>Add <b>one drop</b> of 0.5% FeCl<sub>3</sub> on top of it.</li>
+    <li>Wait <b>10 to 15 seconds</b>. <button id="timerBtn" class="link">Start timer</button> <span id="timer" class="timer" aria-live="polite"></span></li>
+    <li>Take a photo from <b>directly above</b>, flash off, with film visible all around the drop and no shadow on it.</li>
+    <li>Tap the <b>centre</b> of the drop, then its <b>edge</b>.</li>
+  </ol>
+
+  <label class="primary" for="file">Take or choose photo</label>
+  <input id="file" type="file" accept="image/*" capture="environment" hidden>
+
+  <div id="stage" class="stage" hidden>
+    <p class="hint" id="hint">Step 1 of 2: tap the centre of the drop.</p>
+    <canvas id="cv"></canvas>
+  </div>
+
+  <div id="result" class="result" hidden>
+    <p class="label">Result</p>
+    <p class="band" id="band"></p>
+    <p class="est" id="est"></p>
+    <p class="detail" id="detail"></p>
+    <ul class="warn" id="warn"></ul>
+    <details><summary>Measurement details</summary><table id="tech"></table></details>
+  </div>
+</section>
+
+<section id="view-about" class="view" hidden>
+  <h2>What this app does</h2>
+  <p>Gallic acid reacts with iron(III) to form a blue-black iron-gallate complex. The app compares the colour of the reacted drop with the clear film around it. It uses four colour ratios (red, green, blue and grey) and the CIEDE2000 colour difference, and a random-forest model gives the gallic acid level. No grey card or other colour reference is needed.</p>
+  <h2>Privacy</h2>
+  <p>Your photo is analysed inside your browser. It is never uploaded or stored. The app works offline after the first visit.</p>
+  <h2>How good is it?</h2>
+  <p>The model was trained on 63 videos (3 phones, 7 levels from 10 to 10,000 mg/L, 0.5% FeCl<sub>3</sub>, LED lamp). We tested it on a phone and reaction it had not seen, using a single video frame:</p>
+  <ul>
+    <li>Correct level band in 79% of tests; every error was off by one band only.</li>
+    <li>Typical error of the numeric estimate: within a factor of about 1.8 (median); 80% of results within a factor of about 4.</li>
+    <li>First detectable level about 100 mg/L. At 1000 mg/L and above the colour saturates.</li>
+  </ul>
+  <p><b>Not yet validated:</b> photos under ordinary room light, different droppers and other phones. A validation study is under way, and this page will be updated with its results.</p>
+  <h2>Disclaimer</h2>
+  <p>For research and teaching use only. Not a certified analytical method. The authors accept no liability for decisions based on its output.</p>
+  <h2>Cite</h2>
+  <p class="cite">Prasad P., Pavithra K., Savitha M. B. Smartphone video colorimetry and machine learning for gallic acid with ferric chloride (manuscript in preparation, 2026).</p>
+  <p>Datasets (cite; the videos are copyrighted and are not part of this app):</p>
+  <ul>
+    <li>0.5% FeCl<sub>3</sub>: <a href="https://doi.org/10.5281/zenodo.17169600" rel="noopener">doi.org/10.5281/zenodo.17169600</a></li>
+    <li>0.1% FeCl<sub>3</sub>: <a href="https://doi.org/10.5281/zenodo.17169668" rel="noopener">doi.org/10.5281/zenodo.17169668</a></li>
+  </ul>
+  <h2>Authors</h2>
+  <p>Prasad P. (corresponding, <a href="mailto:drprasadp13@gmail.com">drprasadp13@gmail.com</a>) and Pavithra K., Department of Basic Science and Humanities, Jawaharlal College of Engineering and Technology, Palakkad, Kerala, India. Savitha M. B., Department of Chemistry and Research Centre, Sahyadri College of Engineering and Management, Mangaluru, Karnataka, India.</p>
+  <p class="small">App version <span id="ver2"></span> &middot; model <span id="mver"></span></p>
+</section>
+</main>
+<script type="module" src="app.js"></script>
+</body>
+</html>
